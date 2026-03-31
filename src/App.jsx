@@ -17,6 +17,7 @@ const AdminUsers = lazy(() => import('./pages/AdminUsers').then(module => ({ def
 const MyOrders = lazy(() => import('./pages/MyOrders').then(module => ({ default: module.MyOrders })));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage'));
+const OrderSuccess = lazy(() => import('./pages/OrderSuccess'));
 
 function RouteFallback() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
+        <Route path="/order/success/:id" element={<OrderSuccess />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
 

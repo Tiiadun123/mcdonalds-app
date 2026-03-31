@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import { authService } from '../lib/authService';
+import { useCartStore } from './useCartStore';
+import { useWishlistStore } from './useWishlistStore';
 
 function clearAuthHashFromUrl() {
   const hash = window.location.hash || '';
@@ -33,6 +35,9 @@ export const useAuthStore = create((set) => ({
           profile: userData.profile, 
           isAuthenticated: true 
         });
+        // Trigger smart sync on app load if logged in
+        useCartStore.getState().syncCloudOnLogin();
+        useWishlistStore.getState().syncCloudOnLogin();
       } else {
         set({ user: null, profile: null, isAuthenticated: false });
       }
@@ -57,6 +62,9 @@ export const useAuthStore = create((set) => ({
         profile: userData.profile, 
         isAuthenticated: true 
       });
+      // Trigger smart sync right after manual login
+      useCartStore.getState().syncCloudOnLogin();
+      useWishlistStore.getState().syncCloudOnLogin();
       return { success: true };
     } catch (error) {
       return { success: false, error };
@@ -96,6 +104,11 @@ export const useAuthStore = create((set) => ({
   signOut: async () => {
     try {
       await authService.signOut();
+      
+      // Clear data locally to prevent leak
+      useCartStore.getState().clearCart();
+      useWishlistStore.setState({ wishlist: [] });
+      
       set({ user: null, profile: null, isAuthenticated: false });
     } catch (error) {
       console.error('Logout Error:', error);

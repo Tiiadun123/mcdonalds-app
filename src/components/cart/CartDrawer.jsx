@@ -248,6 +248,10 @@ export default function CartDrawer({ isOpen, onClose }) {
       clearCart();
       setVoucher(null);
       setVoucherCode('');
+      
+      // Navigate to order success UX page
+      onClose();
+      navigate(`/order/success/${orderData.id}`);
       addToast("Đặt hàng thành công! Cám ơn bạn.", "success");
       setTimeout(() => {
         setIsSuccess(false);
