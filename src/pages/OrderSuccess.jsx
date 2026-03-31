@@ -6,6 +6,8 @@ import { useCartStore } from '../store/useCartStore';
 import { useToastStore } from '../store/useToastStore';
 import { CheckCircle, Package, ArrowRight, Home, MapPin, Search } from 'lucide-react';
 import Navbar from '../components/layout/Navbar';
+import Confetti from 'react-confetti';
+import { motion } from 'framer-motion';
 
 export default function OrderSuccess() {
   const { id } = useParams();
@@ -58,9 +60,21 @@ export default function OrderSuccess() {
   if (!order) return null;
 
   return (
-    <div className="min-h-screen bg-mc-gray pt-28 pb-12">
+    <div className="min-h-screen bg-mc-gray pt-28 pb-12 overflow-hidden">
       <Navbar />
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Confetti
+        width={window.innerWidth}
+        height={window.innerHeight}
+        recycle={false}
+        numberOfPieces={500}
+        gravity={0.15}
+      />
+      <motion.div 
+        initial={{ opacity: 0, y: 50, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.6, type: 'spring', bounce: 0.4 }}
+        className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         
         {/* Success Header */}
         <div className="bg-white rounded-3xl p-8 shadow-mc border border-mc-gray mb-8 text-center relative overflow-hidden">
@@ -148,7 +162,7 @@ export default function OrderSuccess() {
           </div>
         </div>
 
-      </div>
+      </motion.div>
     </div>
   );
 }

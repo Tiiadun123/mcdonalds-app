@@ -6,7 +6,7 @@ import { supabase, supabaseConfigError } from '../../lib/supabase';
 import { X, Minus, Plus, ShoppingBag, Loader2, CheckCircle, Lock, Trash2, ArrowRight, MapPin, CreditCard, Wallet, Coins, Sparkles, TicketPercent } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const LOCAL_MOMO_QR_PATHS = ['/momo-qr.svg', '/momo-qr.png', '/momo-qr-hung.png', '/qr-momo.png'];
+const LOCAL_MOMO_QR_PATHS = ['/momo-qr-real.jfif', '/momo-qr.svg', '/momo-qr.png'];
 
 export default function CartDrawer({ isOpen, onClose }) {
   const { items, removeItem, addItem, deleteItem, clearCart, getTotalPrice } = useCartStore();
